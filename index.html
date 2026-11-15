@@ -150,6 +150,13 @@
       line-height: 1.65;
     }
     .biography > p { margin: 0 0 17px; }
+    .biography a {
+      color: var(--ink);
+      text-decoration: underline;
+      text-decoration-color: var(--accent);
+      text-underline-offset: 3px;
+    }
+    .biography a:hover { color: var(--accent); }
     .bio-more { margin: -1px 0 0; }
     .bio-more summary {
       display: inline;
@@ -219,7 +226,7 @@
 
   <main id="top">
     <section class="biography" aria-label="About Njuguna Ngugi">
-      <p>Njuguna Ngugi is the Founder and Chief Executive Officer of Trendify, an artificial intelligence research and technology company focused on developing AI models, intelligent systems and AI infrastructure.</p>
+      <p>Njuguna Ngugi is the Founder and Chief Executive Officer of <a href="https://tiff.co.ke/">Trendify</a>, an artificial intelligence research and technology company focused on developing AI models, intelligent systems and AI infrastructure.</p>
       <details class="bio-more">
         <summary><span class="read-more">Read more</span><span class="read-less">Read less</span></summary>
         <div class="bio-expanded">
