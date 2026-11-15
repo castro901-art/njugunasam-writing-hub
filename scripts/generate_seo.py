@@ -8,6 +8,7 @@ that page's first paragraph in .publication-body. The article body is never edit
 from __future__ import annotations
 
 import argparse
+import base64
 from dataclasses import dataclass
 from html import escape
 from html.parser import HTMLParser
@@ -20,6 +21,17 @@ ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://njugunasam.co.ke"
 PERSON_ID = SITE + "/#person"
 SOCIAL_DIR = ROOT / "images" / "social"
+SIGNATURE_SOURCE = ROOT / "images" / "signature-source.jpg"
+EM_DASH = chr(0x2014)
+EM_DASH_ENTITY = re.compile(r"&(?:mdash|#0*8212|#x0*2014);", re.I)
+
+
+def normalize_em_dashes(value: str) -> str:
+    return EM_DASH_ENTITY.sub("-", value.replace(EM_DASH, "-"))
+
+
+def contains_em_dash(value: str) -> bool:
+    return EM_DASH in value or bool(EM_DASH_ENTITY.search(value))
 
 
 @dataclass(frozen=True)
@@ -93,7 +105,7 @@ class ContentExtractor(HTMLParser):
 
 
 def compact(value: str) -> str:
-    return re.sub(r"\s+", " ", value).strip()
+    return re.sub(r"\s+", " ", normalize_em_dashes(value)).strip()
 
 
 def shorten(value: str, limit: int = 160) -> str:
@@ -115,14 +127,26 @@ def page_paths() -> list[Path]:
     return paths
 
 
+def normalize_site_punctuation() -> None:
+    changed = 0
+    for path in page_paths():
+        source = path.read_text(encoding="utf-8")
+        normalized = normalize_em_dashes(source)
+        if normalized != source:
+            path.write_text(normalized, encoding="utf-8")
+            changed += 1
+    if changed:
+        print(f"Replaced em dashes with hyphens in {changed} page(s).")
+
+
 def describe_page(path: Path) -> Page:
     relative = path.relative_to(ROOT).as_posix()
     if relative == "index.html":
         return Page(
             path=path,
             relative=relative,
-            html_title="Njuguna Ngugi — Founder & CEO of Trendify",
-            title="Njuguna Ngugi — Founder & CEO of Trendify",
+            html_title="Njuguna Ngugi - Founder & CEO of Trendify",
+            title="Njuguna Ngugi - Founder & CEO of Trendify",
             description=(
                 "Njuguna Ngugi is Founder and CEO of Trendify. Explore writing on "
                 "artificial intelligence, African development, public finance and technology."
@@ -151,7 +175,7 @@ def describe_page(path: Path) -> Page:
     return Page(
         path=path,
         relative=relative,
-        html_title=f"{parser.heading} — Njuguna Ngugi",
+        html_title=f"{parser.heading} - Njuguna Ngugi",
         title=parser.heading,
         description=description,
         category=category,
@@ -298,6 +322,19 @@ def replace_head(source: str, metadata: str, relative: str) -> str:
 
 
 def card_html(page: Page) -> str:
+    if page.home:
+        if not SIGNATURE_SOURCE.is_file():
+            raise FileNotFoundError(f"Missing handwritten signature source: {SIGNATURE_SOURCE}")
+        signature = base64.b64encode(SIGNATURE_SOURCE.read_bytes()).decode("ascii")
+        return f'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><style>
+* {{ box-sizing:border-box; }}
+html,body {{ width:1200px; height:630px; margin:0; }}
+body {{ background:#f2f0e6; }}
+.card {{ width:1200px; height:630px; border:1px solid #c9c7bd; display:flex; align-items:center; justify-content:center; overflow:hidden; background:#f2f0e6; }}
+.signature {{ display:block; width:942px; height:628px; max-width:100%; max-height:100%; object-fit:contain; }}
+</style></head><body><div class="card"><img class="signature" src="data:image/jpeg;base64,{signature}" alt="Handwritten signature of Njuguna Ngugi"></div></body></html>'''
+
     title = escape(page.title)
     subtitle = escape(page.description)
     category = escape(page.category.upper())
@@ -367,6 +404,8 @@ def check(pages: list[Page]) -> None:
     failures: list[str] = []
     for page in pages:
         source = page.path.read_text(encoding="utf-8")
+        if contains_em_dash(source):
+            failures.append(f"{page.relative}: still contains an em dash")
         for token in (
             f'<link rel="canonical" href="{page.canonical}">',
             f'<meta property="og:image" content="{page.image_url}">',
@@ -384,6 +423,10 @@ def check(pages: list[Page]) -> None:
             if header[:8] != b"\x89PNG\r\n\x1a\n" or int.from_bytes(header[16:20], "big") != 1200 or int.from_bytes(header[20:24], "big") != 630:
                 failures.append(f"{page.relative}: social image is not a 1200x630 PNG")
     sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+    if contains_em_dash(sitemap):
+        failures.append("sitemap.xml: still contains an em dash")
+    if not SIGNATURE_SOURCE.is_file():
+        failures.append("missing handwritten signature source image")
     for page in pages:
         if f"<loc>{page.canonical}</loc>" not in sitemap:
             failures.append(f"sitemap.xml: missing {page.canonical}")
@@ -396,6 +439,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true", help="validate generated metadata, cards, and sitemap without changing files")
     args = parser.parse_args()
+    if not args.check:
+        normalize_site_punctuation()
     pages = [describe_page(path) for path in page_paths()]
     if args.check:
         check(pages)
@@ -419,7 +464,7 @@ def main() -> int:
             raise RuntimeError(f"Refusing to change article body content: {item.relative}")
     write_sitemap(pages)
     check(pages)
-    print("Generated page metadata and sitemap; article body content was preserved.")
+    print("Generated metadata and sitemap; page wording was preserved apart from em-dash punctuation.")
     return 0
 
 
