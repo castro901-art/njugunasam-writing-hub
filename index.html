@@ -156,6 +156,13 @@
       font-size: 16px;
       line-height: 1.5;
     }
+    .research-list { margin: 0; padding: 0; list-style: none; }
+    .research-item { padding: 12px 0 13px; }
+    .research-item + .research-item { border-top: 1px solid var(--line); }
+    .research-title { margin: 0 0 5px; font-size: 18px; font-weight: 700; line-height: 1.35; }
+    .research-title a { color: var(--ink); text-decoration-color: var(--line); text-underline-offset: 3px; }
+    .research-title a:hover { color: var(--accent); }
+    .research-subtitle { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
     @media (max-width: 540px) {
       .site-header { padding-top: 19px; }
       .brand { font-size: 22px; }
@@ -201,7 +208,16 @@
       </section>
       <section class="index-section" id="research" aria-labelledby="research-title">
         <h2 id="research-title">Research</h2>
-        <p class="empty-state">Nothing listed yet.</p>
+        <ul class="research-list">
+          <li class="research-item">
+            <h3 class="research-title"><a href="/research/fiscal-space-and-infrastructure-investment-in-africa.html">Fiscal Space and Infrastructure Investment in Africa</a></h3>
+            <p class="research-subtitle">Rethinking how the continent finances long-term economic development</p>
+          </li>
+          <li class="research-item">
+            <h3 class="research-title"><a href="/research/regulating-artificial-intelligence-in-kenya.html">Regulating Artificial Intelligence in Kenya</a></h3>
+            <p class="research-subtitle">Why protecting innovation must be part of protecting the public interest</p>
+          </li>
+        </ul>
       </section>
       <section class="index-section" id="conversations" aria-labelledby="conversations-title">
         <h2 id="conversations-title">Talks &amp; interviews</h2>
