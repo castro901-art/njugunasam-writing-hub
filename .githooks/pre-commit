@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+root="$(git rev-parse --show-toplevel)"
+cd "$root"
+
+mapfile -t staged_pages < <(
+  git diff --cached --name-only --diff-filter=ACMR \
+    | grep -E '^(index\.html|research/.*\.html|notes/.*\.html)$' || true
+)
+if ((${#staged_pages[@]} == 0)); then
+  exit 0
+fi
+
+# Avoid staging unrelated, unfinished article edits as a side effect of generation.
+if ! git diff --quiet -- index.html research notes; then
+  echo "SEO hook stopped: stage or stash all existing edits to index.html, research/, and notes/ first." >&2
+  exit 1
+fi
+if [[ -n "$(git ls-files --others --exclude-standard -- index.html research notes)" ]]; then
+  echo "SEO hook stopped: stage new writing pages before committing." >&2
+  exit 1
+fi
+
+python3 scripts/generate_seo.py
+
+mapfile -t outputs < <(
+  {
+    printf '%s\n' index.html sitemap.xml
+    find research notes -type f -name '*.html' -print 2>/dev/null || true
+    find images/social -type f -name '*.png' -print 2>/dev/null || true
+  } | sort -u
+)
+git add -- "${outputs[@]}"
