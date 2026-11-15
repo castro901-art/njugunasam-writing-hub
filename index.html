@@ -3,277 +3,168 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f4f2ec">
-  <title>Njuguna Ngugi — Writing & Ideas</title>
+  <meta name="theme-color" content="#f2f0e6">
+  <title>Njuguna Ngugi — Founder &amp; CEO of Trendify</title>
+  <meta name="description" content="Njuguna Ngugi is the Founder and Chief Executive Officer of Trendify, an artificial intelligence research and technology company focused on developing AI models, intelligent systems and AI infrastructure.">
+  <meta name="author" content="Njuguna Ngugi">
+  <link rel="canonical" href="https://njugunasam.co.ke/">
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="Njuguna Ngugi">
+  <meta property="og:title" content="Njuguna Ngugi — Founder &amp; CEO of Trendify">
+  <meta property="og:description" content="Njuguna Ngugi is the Founder and Chief Executive Officer of Trendify, an artificial intelligence research and technology company focused on developing AI models, intelligent systems and AI infrastructure.">
+  <meta property="og:url" content="https://njugunasam.co.ke/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Njuguna Ngugi — Founder &amp; CEO of Trendify">
+  <meta name="twitter:description" content="Njuguna Ngugi is the Founder and Chief Executive Officer of Trendify, an artificial intelligence research and technology company focused on developing AI models, intelligent systems and AI infrastructure.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://njugunasam.co.ke/#person",
+    "name": "Njuguna Ngugi",
+    "url": "https://njugunasam.co.ke/",
+    "jobTitle": "Founder and Chief Executive Officer",
+    "description": "Njuguna Ngugi is the Founder and Chief Executive Officer of Trendify, an artificial intelligence research and technology company focused on developing AI models, intelligent systems and AI infrastructure.",
+    "worksFor": { "@id": "https://tiff.co.ke/#organization" },
+    "sameAs": ["https://www.linkedin.com/in/njuguna-ngugi-034176348"]
+  }
+  </script>
   <style>
     :root {
       color-scheme: light;
-      --paper: #f4f2ec;
-      --paper-deep: #eae7df;
-      --ink: #20241f;
-      --muted: #6c7169;
-      --line: #d8d6ce;
-      --accent: #a34c35;
-      --green: #355d4e;
+      --paper: #f2f0e6;
+      --ink: #211f1b;
+      --muted: #59574f;
+      --line: #c9c7bd;
+      --accent: #744b3d;
+      --switch-track: #fffdf5;
+      --switch-border: #77746c;
+      --switch-dot: #211f1b;
       --serif: Georgia, "Times New Roman", serif;
-      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      --sans: Arial, Helvetica, sans-serif;
     }
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+    html { scroll-behavior: smooth; }
     body {
+      min-width: 320px;
       margin: 0;
       background: var(--paper);
       color: var(--ink);
-      font-family: var(--sans);
+      font-family: var(--serif);
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
+      transition: background-color .2s ease, color .2s ease;
     }
-    a { color: inherit; }
-    .page-shell { min-height: 100vh; }
+    body[data-theme="dark"] {
+      color-scheme: dark;
+      --paper: #20211f;
+      --ink: #eeeae0;
+      --muted: #bcb8ad;
+      --line: #55544e;
+      --accent: #d4a48e;
+      --switch-track: #3a3b37;
+      --switch-border: #aaa69b;
+      --switch-dot: #eeeae0;
+    }
     .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 5;
-      background: rgba(244, 242, 236, .94);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(12px);
-    }
-    .header-inner {
-      width: min(1120px, calc(100% - 64px));
-      min-height: 74px;
+      width: min(590px, calc(100% - 40px));
       margin: 0 auto;
+      padding-top: 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 28px;
+      gap: 20px;
     }
     .brand {
-      display: inline-flex;
+      color: var(--ink);
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -.035em;
+      text-decoration: none;
+    }
+    .theme-toggle {
+      width: 39px;
+      height: 22px;
+      flex: 0 0 auto;
+      padding: 2px;
+      border: 1px solid var(--switch-border);
+      border-radius: 99px;
+      background: var(--switch-track);
+      cursor: pointer;
+      display: flex;
       align-items: center;
-      gap: 11px;
-      text-decoration: none;
-      white-space: nowrap;
+      transition: background-color .2s ease, border-color .2s ease;
     }
-    .brand-mark {
-      width: 33px;
-      height: 33px;
-      display: grid;
-      place-items: center;
-      border: 1px solid var(--ink);
+    .theme-toggle::before {
+      content: "";
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
-      font-family: var(--serif);
-      font-size: 15px;
-      letter-spacing: -.06em;
+      background: var(--switch-dot);
+      transition: transform .2s ease, background-color .2s ease;
     }
-    .brand-name { font-size: 13px; font-weight: 600; letter-spacing: -.015em; }
-    .nav-links { display: flex; align-items: center; gap: clamp(18px, 3vw, 37px); }
-    .nav-links a {
-      color: #4c514b;
-      font-size: 12px;
-      text-decoration: none;
-      transition: color .18s ease;
+    body[data-theme="dark"] .theme-toggle::before { transform: translateX(17px); }
+    .theme-toggle:focus-visible, a:focus-visible, summary:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
     }
-    .nav-links a:hover, .nav-links a:focus-visible { color: var(--accent); }
-    .draft-label {
-      font: 10px var(--mono);
-      letter-spacing: .09em;
-      color: var(--accent);
-      border: 1px solid #c99283;
-      padding: 7px 9px 6px;
-      white-space: nowrap;
+    main {
+      width: min(590px, calc(100% - 40px));
+      margin: 34px auto 0;
     }
-    main { overflow: hidden; }
-    .content { width: min(1000px, calc(100% - 64px)); margin: 0 auto; }
-    .hero {
-      padding: clamp(76px, 11vw, 132px) 0 92px;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 248px;
-      gap: clamp(48px, 9vw, 120px);
-      align-items: end;
-      border-bottom: 1px solid var(--line);
-    }
-    .eyebrow, .section-kicker {
-      margin: 0 0 22px;
-      color: var(--green);
-      font: 10px var(--mono);
-      letter-spacing: .13em;
-      text-transform: uppercase;
-    }
-    h1 {
-      max-width: 700px;
-      margin: 0;
-      font-family: var(--serif);
-      font-weight: 400;
-      font-size: clamp(52px, 7.7vw, 92px);
-      line-height: .99;
-      letter-spacing: -.065em;
-    }
-    h1 span { color: var(--accent); font-style: italic; }
-    .bio-prompt {
-      max-width: 570px;
-      margin: 28px 0 0;
-      padding: 13px 0 13px 17px;
-      border-left: 2px solid #c99283;
-      color: #555a53;
-      font-family: var(--serif);
+    .biography {
       font-size: 18px;
       line-height: 1.65;
     }
-    .bio-prompt > p { margin: 0; }
-    .bio-more { margin-top: 9px; }
+    .biography > p { margin: 0 0 17px; }
+    .bio-more { margin: -1px 0 0; }
     .bio-more summary {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      display: inline;
       color: var(--accent);
-      font: 600 12px var(--sans);
+      font-family: var(--sans);
+      font-size: 13px;
+      line-height: 1.6;
       cursor: pointer;
       list-style: none;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
     }
     .bio-more summary::-webkit-details-marker { display: none; }
-    .bio-more summary::after { content: "+"; font: 14px var(--mono); }
-    .bio-more[open] summary::after { content: "−"; }
     .bio-more .read-less { display: none; }
     .bio-more[open] .read-more { display: none; }
     .bio-more[open] .read-less { display: inline; }
-    .bio-expanded { padding-top: 8px; }
-    .bio-expanded p { margin: 0 0 10px; }
+    .bio-expanded { padding-top: 15px; }
+    .bio-expanded p { margin: 0 0 17px; }
     .bio-expanded p:last-child { margin-bottom: 0; }
-    .side-note {
-      padding: 21px 0 4px;
-      border-top: 1px solid var(--ink);
-    }
-    .side-note .label {
-      margin: 0 0 17px;
-      color: var(--muted);
-      font: 10px var(--mono);
-      letter-spacing: .09em;
-      text-transform: uppercase;
-    }
-    .side-note p:last-child {
-      margin: 0;
-      font-family: var(--serif);
-      font-size: 20px;
-      line-height: 1.35;
-      letter-spacing: -.025em;
-    }
-    .side-note em { color: var(--green); }
-    .section {
-      padding: 78px 0 80px;
-      border-bottom: 1px solid var(--line);
-      display: grid;
-      grid-template-columns: 210px minmax(0, 1fr);
-      gap: clamp(34px, 7vw, 92px);
-    }
-    .section-heading { padding-top: 3px; }
-    .section-heading .section-kicker { margin-bottom: 14px; }
-    h2 {
-      margin: 0;
-      font-family: var(--serif);
-      font-weight: 400;
-      font-size: 34px;
-      line-height: 1.1;
-      letter-spacing: -.045em;
-    }
-    .section-intro {
-      margin: 13px 0 0;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.65;
-    }
-    .entries { display: grid; }
-    .entry {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 22px;
-      padding: 17px 0 18px;
+    .index { margin-top: 28px; }
+    .index-section {
+      padding: 14px 0 15px;
       border-top: 1px solid var(--line);
     }
-    .entry:first-child { border-top-color: var(--ink); }
-    .entry h3 {
-      margin: 3px 0 6px;
-      font-family: var(--serif);
+    .index-section h2 {
+      margin: 0 0 9px;
       font-size: 21px;
-      font-weight: 400;
-      letter-spacing: -.025em;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -.02em;
     }
-    .entry p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
-    .entry-date { padding-top: 5px; color: var(--muted); font: 10px var(--mono); white-space: nowrap; }
-    .placeholder-tag {
-      display: inline-block;
-      color: var(--accent);
-      font: 9px var(--mono);
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-    .two-up {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0 56px;
-      border-bottom: 1px solid var(--line);
-    }
-    .two-up .section { border-bottom: 0; }
-    .two-up .section { grid-template-columns: 1fr; gap: 25px; padding: 65px 0 68px; }
-    .two-up .section-heading { display: flex; align-items: baseline; gap: 12px; }
-    .two-up .section-kicker { margin: 0; }
-    .two-up h2 { font-size: 32px; }
-    .two-up .section-intro { max-width: 270px; }
-    .two-up .entry { gap: 8px; }
-    .two-up .entry h3 { font-size: 19px; }
-    .final-section { border-bottom: 0; }
-    .footer {
-      background: var(--paper-deep);
-      border-top: 1px solid var(--line);
-    }
-    .footer-inner {
-      width: min(1000px, calc(100% - 64px));
-      margin: 0 auto;
-      padding: 26px 0 30px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
+    .empty-state {
+      margin: 0;
       color: var(--muted);
-      font-size: 11px;
+      font-size: 16px;
+      line-height: 1.5;
     }
-    .footer-inner p { margin: 0; }
-    .footer-mark { color: var(--ink); font: 11px var(--mono); letter-spacing: .08em; }
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
-    @media (max-width: 760px) {
-      .header-inner, .content, .footer-inner { width: min(100% - 40px, 580px); }
-      .header-inner { min-height: 68px; gap: 12px; }
-      .brand-name { font-size: 12px; }
-      .brand-mark { width: 30px; height: 30px; }
-      .draft-label { font-size: 9px; padding: 6px 7px 5px; }
-      .nav-links { gap: 15px; }
-      .nav-links a { font-size: 11px; }
-      .nav-links a:nth-child(3) { display: none; }
-      .hero { grid-template-columns: 1fr; gap: 42px; padding: 81px 0 65px; }
-      h1 { font-size: clamp(54px, 12vw, 76px); }
-      .bio-prompt { font-size: 17px; }
-      .side-note { max-width: 350px; }
-      .section { grid-template-columns: 1fr; gap: 24px; padding: 58px 0 60px; }
-      .section-heading { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 12px; }
-      .section-heading .section-kicker { margin: 0; }
-      .section-intro { grid-column: 2; margin-top: -3px; }
-      .two-up { grid-template-columns: 1fr; }
-      .two-up .section { padding: 56px 0 58px; border-bottom: 1px solid var(--line); }
-      .two-up .section:last-child { border-bottom: 0; }
-      .two-up .section-heading { display: grid; }
-      .two-up .section-intro { grid-column: 1; margin-top: 0; }
-      .footer-inner { align-items: flex-start; flex-direction: column; padding: 23px 0 26px; }
-    }
-    @media (max-width: 480px) {
-      .header-inner, .content, .footer-inner { width: calc(100% - 36px); }
-      .header-inner { flex-wrap: wrap; padding: 13px 0 12px; }
-      .brand { flex: 1; }
-      .nav-links { order: 3; width: 100%; justify-content: space-between; padding-top: 9px; border-top: 1px solid var(--line); }
-      .nav-links a:nth-child(3) { display: inline; }
-      .hero { padding-top: 65px; }
-      .entry { grid-template-columns: 1fr; gap: 5px; }
-      .entry-date { grid-row: 1; }
-      .entry h3 { margin-top: 6px; }
+    @media (max-width: 540px) {
+      .site-header { padding-top: 19px; }
+      .brand { font-size: 22px; }
+      main { margin-top: 28px; }
+      .biography { font-size: 17px; line-height: 1.62; }
+      .index { margin-top: 24px; }
+      .index-section { padding-top: 13px; padding-bottom: 14px; }
+      .index-section h2 { font-size: 20px; }
+      .empty-state { font-size: 15px; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -282,136 +173,51 @@
   </style>
 </head>
 <body>
-  <div class="page-shell">
-    <header class="site-header">
-      <div class="header-inner">
-        <a class="brand" href="#top" aria-label="Njuguna Ngugi, home">
-          <span class="brand-mark" aria-hidden="true">NN</span>
-          <span class="brand-name">Njuguna Ngugi</span>
-        </a>
-        <nav class="nav-links" aria-label="Main navigation">
-          <a href="#essays">Essays</a>
-          <a href="#notes">Notes</a>
-          <a href="#research">Research</a>
-          <a href="#conversations">Talks &amp; interviews</a>
-        </nav>
-        <span class="draft-label">WRITING &amp; IDEAS</span>
-      </div>
-    </header>
+  <header class="site-header">
+    <a class="brand" href="#top">Njuguna Ngugi</a>
+    <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false"></button>
+  </header>
 
-    <main id="top">
-      <div class="content">
-        <section class="hero" id="about" aria-labelledby="page-title">
-          <div>
-            <p class="eyebrow">A personal writing hub</p>
-            <h1 id="page-title">A home for<br><span>ideas &amp; writing.</span></h1>
-            <div class="bio-prompt">
-              <p>Njuguna Ngugi is the Founder and Chief Executive Officer of Trendify, an artificial intelligence research and technology company focused on developing AI models, intelligent systems and AI infrastructure.</p>
-              <details class="bio-more">
-                <summary><span class="read-more">Read more</span><span class="read-less">Read less</span></summary>
-                <div class="bio-expanded">
-                  <p>Previously, Njuguna founded TrendsInfluence, a digital marketing venture that marked his entry into entrepreneurship and technology. Under his leadership, the company evolved into Trendify, expanding its focus towards artificial intelligence research and the development of intelligent technologies. His work focuses on advancing AI systems that understand African languages, cultures and contexts, contributing to a more inclusive and representative future for artificial intelligence.</p>
-                  <p>Before founding Trendify, Njuguna worked as a Project Manager at Expansion International and in Research and Analysis at Kijabe Environmental Volunteers.</p>
-                </div>
-              </details>
-            </div>
-          </div>
-          <aside class="side-note" aria-label="What this site gathers">
-            <p class="label">A simple index</p>
-            <p>Essays, brief notes, <em>research</em>, and conversations worth returning to.</p>
-          </aside>
-        </section>
-
-        <div class="two-up">
-          <section class="section" id="essays" aria-labelledby="essays-title">
-            <div class="section-heading">
-              <p class="section-kicker">01</p>
-              <div>
-                <h2 id="essays-title">Essays</h2>
-                <p class="section-intro">Longer pieces and considered arguments.</p>
-              </div>
-            </div>
-            <div class="entries">
-              <article class="entry">
-                <div>
-                  <span class="placeholder-tag">Your first essay</span>
-                  <h3>Essay title goes here</h3>
-                  <p>Add a one-sentence description or replace this with the opening of the piece.</p>
-                </div>
-                <span class="entry-date">YEAR</span>
-              </article>
-            </div>
-          </section>
-
-          <section class="section" id="notes" aria-labelledby="notes-title">
-            <div class="section-heading">
-              <p class="section-kicker">02</p>
-              <div>
-                <h2 id="notes-title">Short notes</h2>
-                <p class="section-intro">Small observations, questions, and updates.</p>
-              </div>
-            </div>
-            <div class="entries">
-              <article class="entry">
-                <div>
-                  <span class="placeholder-tag">Your first note</span>
-                  <h3>A note goes here</h3>
-                  <p>A short thought can stand on its own—add the text and date when ready.</p>
-                </div>
-                <span class="entry-date">DATE</span>
-              </article>
-            </div>
-          </section>
+  <main id="top">
+    <section class="biography" aria-label="About Njuguna Ngugi">
+      <p>Njuguna Ngugi is the Founder and Chief Executive Officer of Trendify, an artificial intelligence research and technology company focused on developing AI models, intelligent systems and AI infrastructure.</p>
+      <details class="bio-more">
+        <summary><span class="read-more">Read more</span><span class="read-less">Read less</span></summary>
+        <div class="bio-expanded">
+          <p>Previously, Njuguna founded TrendsInfluence, a digital marketing venture that marked his entry into entrepreneurship and technology. Under his leadership, the company evolved into Trendify, expanding its focus towards artificial intelligence research and the development of intelligent technologies. His work focuses on advancing AI systems that understand African languages, cultures and contexts, contributing to a more inclusive and representative future for artificial intelligence.</p>
+          <p>Before founding Trendify, Njuguna worked as a Project Manager at Expansion International and in Research and Analysis at Kijabe Environmental Volunteers.</p>
         </div>
+      </details>
+    </section>
 
-        <section class="section" id="research" aria-labelledby="research-title">
-          <div class="section-heading">
-            <p class="section-kicker">03</p>
-            <div>
-              <h2 id="research-title">Research</h2>
-              <p class="section-intro">Selected research, papers, or projects.</p>
-            </div>
-          </div>
-          <div class="entries">
-            <article class="entry">
-              <div>
-                <span class="placeholder-tag">Add a research item</span>
-                <h3>Title of a paper, project, or topic</h3>
-                <p>Include your role, collaborators if relevant, a brief summary, and a link to the work.</p>
-              </div>
-              <span class="entry-date">YEAR</span>
-            </article>
-          </div>
-        </section>
+    <div class="index" aria-label="Writing index">
+      <section class="index-section" id="essays" aria-labelledby="essays-title">
+        <h2 id="essays-title">Essays</h2>
+        <p class="empty-state">Nothing listed yet.</p>
+      </section>
+      <section class="index-section" id="notes" aria-labelledby="notes-title">
+        <h2 id="notes-title">Short notes</h2>
+        <p class="empty-state">Nothing listed yet.</p>
+      </section>
+      <section class="index-section" id="research" aria-labelledby="research-title">
+        <h2 id="research-title">Research</h2>
+        <p class="empty-state">Nothing listed yet.</p>
+      </section>
+      <section class="index-section" id="conversations" aria-labelledby="conversations-title">
+        <h2 id="conversations-title">Talks &amp; interviews</h2>
+        <p class="empty-state">Nothing listed yet.</p>
+      </section>
+    </div>
+  </main>
 
-        <section class="section final-section" id="conversations" aria-labelledby="conversations-title">
-          <div class="section-heading">
-            <p class="section-kicker">04</p>
-            <div>
-              <h2 id="conversations-title">Talks &amp; interviews</h2>
-              <p class="section-intro">Conversations, talks, panels, and interviews.</p>
-            </div>
-          </div>
-          <div class="entries">
-            <article class="entry">
-              <div>
-                <span class="placeholder-tag">Add a conversation</span>
-                <h3>Talk or interview title</h3>
-                <p>Add the host or venue, date, and a link to watch or listen.</p>
-              </div>
-              <span class="entry-date">YEAR</span>
-            </article>
-          </div>
-        </section>
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        <p>Personal writing hub · Content prompts are placeholders, not published work.</p>
-        <span class="footer-mark">NN&nbsp; / &nbsp;WRITING</span>
-      </div>
-    </footer>
-  </div>
+  <script>
+    const themeToggle = document.querySelector('.theme-toggle');
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.body.dataset.theme !== 'dark';
+      document.body.dataset.theme = isDark ? 'dark' : 'light';
+      themeToggle.setAttribute('aria-pressed', String(isDark));
+      themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+    });
+  </script>
 </body>
 </html>
