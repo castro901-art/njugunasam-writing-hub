@@ -120,6 +120,26 @@
       font-size: 18px;
       line-height: 1.65;
     }
+    .bio-prompt > p { margin: 0; }
+    .bio-more { margin-top: 9px; }
+    .bio-more summary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent);
+      font: 600 12px var(--sans);
+      cursor: pointer;
+      list-style: none;
+    }
+    .bio-more summary::-webkit-details-marker { display: none; }
+    .bio-more summary::after { content: "+"; font: 14px var(--mono); }
+    .bio-more[open] summary::after { content: "−"; }
+    .bio-more .read-less { display: none; }
+    .bio-more[open] .read-more { display: none; }
+    .bio-more[open] .read-less { display: inline; }
+    .bio-expanded { padding-top: 8px; }
+    .bio-expanded p { margin: 0 0 10px; }
+    .bio-expanded p:last-child { margin-bottom: 0; }
     .side-note {
       padding: 21px 0 4px;
       border-top: 1px solid var(--ink);
@@ -285,7 +305,16 @@
           <div>
             <p class="eyebrow">A personal writing hub</p>
             <h1 id="page-title">A home for<br><span>ideas &amp; writing.</span></h1>
-            <p class="bio-prompt">I’m Njuguna Ngugi, CEO of Trendify Labs. This is where I share my notes, research, and conversations.</p>
+            <div class="bio-prompt">
+              <p>Njuguna Ngugi is the Founder and Chief Executive Officer of Trendify, an artificial intelligence research and technology company focused on developing AI models, intelligent systems and AI infrastructure.</p>
+              <details class="bio-more">
+                <summary><span class="read-more">Read more</span><span class="read-less">Read less</span></summary>
+                <div class="bio-expanded">
+                  <p>Previously, Njuguna founded TrendsInfluence, a digital marketing venture that marked his entry into entrepreneurship and technology. Under his leadership, the company evolved into Trendify, expanding its focus towards artificial intelligence research and the development of intelligent technologies. His work focuses on advancing AI systems that understand African languages, cultures and contexts, contributing to a more inclusive and representative future for artificial intelligence.</p>
+                  <p>Before founding Trendify, Njuguna worked as a Project Manager at Expansion International and in Research and Analysis at Kijabe Environmental Volunteers.</p>
+                </div>
+              </details>
+            </div>
           </div>
           <aside class="side-note" aria-label="What this site gathers">
             <p class="label">A simple index</p>
