@@ -3,7 +3,8 @@
 
 Discovers index.html plus published HTML pages under research/ and notes/.
 Research/note titles come from <h1>; descriptions come from .subtitle, or from
-that page's first paragraph in .publication-body. The article body is never edited.
+that page's first paragraph in .publication-body. Article wording is preserved;
+the generator changes only em-dash punctuation.
 """
 from __future__ import annotations
 
