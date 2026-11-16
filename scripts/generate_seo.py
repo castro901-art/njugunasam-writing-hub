@@ -146,17 +146,17 @@ def describe_page(path: Path) -> Page:
         return Page(
             path=path,
             relative=relative,
-            html_title="Njuguna Ngugi - Founder & CEO of Trendify",
-            title="Njuguna Ngugi - Founder & CEO of Trendify",
+            html_title="Njuguna Ngugi | Founder & CEO of Trendify Labs",
+            title="Njuguna Ngugi | Founder & CEO of Trendify Labs",
             description=(
-                "Njuguna Ngugi is Founder and CEO of Trendify. Explore writing on "
+                "Njuguna Ngugi is Founder and CEO of Trendify Labs. Read his writing on "
                 "artificial intelligence, African development, public finance and technology."
             ),
             category="Profile",
             section="Profile",
-            schema_type="Person",
+            schema_type="ProfilePage",
             image_name="home.png",
-            image_alt="Njuguna Ngugi, Founder and CEO of Trendify",
+            image_alt="Njuguna Ngugi, Founder and CEO of Trendify Labs",
             home=True,
         )
 
@@ -227,8 +227,22 @@ def page_metadata(page: Page) -> str:
                 "url": SITE + "/",
                 "jobTitle": "Founder and Chief Executive Officer",
                 "description": page.description,
-                "worksFor": {"@id": "https://tiff.co.ke/#organization"},
+                "worksFor": {
+                    "@type": "Organization",
+                    "@id": "https://tiff.co.ke/#organization",
+                    "name": "Trendify Labs",
+                    "url": "https://tiff.co.ke/",
+                },
                 "sameAs": ["https://www.linkedin.com/in/njuguna-ngugi-034176348"],
+            }),
+            json_script({
+                "@context": "https://schema.org",
+                "@type": "ProfilePage",
+                "@id": SITE + "/#profile",
+                "url": SITE + "/",
+                "name": page.html_title,
+                "isPartOf": {"@id": SITE + "/#website"},
+                "mainEntity": {"@id": PERSON_ID},
             }),
             json_script({
                 "@context": "https://schema.org",

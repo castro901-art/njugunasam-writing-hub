@@ -1,6 +1,6 @@
 # SEO and social-preview automation
 
-The writing hub has a reusable generator at `scripts/generate_seo.py`. It discovers `index.html` and published HTML pages in `research/` and `notes/`, derives article titles from `<h1>` and descriptions from `.subtitle` (or the first paragraph in `.publication-body`), then updates page metadata, structured data, a 1200×630 PNG social card, and `sitemap.xml`. The homepage card features the full handwritten signature image from `images/signature-source.jpg`, fitted without cropping. The generator changes page wording only to replace em-dash punctuation with hyphens.
+The writing hub has a reusable generator at `scripts/generate_seo.py`. It discovers `index.html` and published HTML pages in `research/` and `notes/`, derives article titles from `<h1>` and descriptions from `.subtitle` (or the first paragraph in `.publication-body`), then updates page metadata, structured data, a 1200×630 PNG social card, and `sitemap.xml`. The homepage uses `ProfilePage` markup whose main entity is Njuguna Ngugi; his `worksFor` points to Trendify Labs' existing Organization ID, and published articles reference the same Person ID as author. The homepage card features the full handwritten signature image from `images/signature-source.jpg`, fitted without cropping. The generator changes page wording only to replace em-dash punctuation with hyphens.
 
 ## One-time setup for a clone
 
