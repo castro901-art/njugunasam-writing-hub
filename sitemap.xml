@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://njugunasam.co.ke/</loc></url>
-  <url><loc>https://njugunasam.co.ke/research/artificial-intelligence-and-africas-economic-future.html</loc></url>
-  <url><loc>https://njugunasam.co.ke/research/culture-is-the-missing-layer-in-ai.html</loc></url>
-  <url><loc>https://njugunasam.co.ke/research/financing-africas-renewable-energy-transition.html</loc></url>
-  <url><loc>https://njugunasam.co.ke/research/fiscal-space-and-infrastructure-investment-in-africa.html</loc></url>
-  <url><loc>https://njugunasam.co.ke/research/regulating-artificial-intelligence-in-kenya.html</loc></url>
-  <url><loc>https://njugunasam.co.ke/notes/why-we-called-it-tiff.html</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url><loc>https://njugunasam.co.ke/</loc>
+    <image:image><image:loc>https://njugunasam.co.ke/images/njuguna-ngugi.png</image:loc></image:image>
+  </url>
+  <url><loc>https://njugunasam.co.ke/research/artificial-intelligence-and-africas-economic-future.html</loc>
+  </url>
+  <url><loc>https://njugunasam.co.ke/research/culture-is-the-missing-layer-in-ai.html</loc>
+  </url>
+  <url><loc>https://njugunasam.co.ke/research/financing-africas-renewable-energy-transition.html</loc>
+  </url>
+  <url><loc>https://njugunasam.co.ke/research/fiscal-space-and-infrastructure-investment-in-africa.html</loc>
+  </url>
+  <url><loc>https://njugunasam.co.ke/research/regulating-artificial-intelligence-in-kenya.html</loc>
+  </url>
+  <url><loc>https://njugunasam.co.ke/research/the-subscription-economy-wasnt-built-for-africa-and-thats-a-problem.html</loc>
+  </url>
+  <url><loc>https://njugunasam.co.ke/notes/why-we-called-it-tiff.html</loc>
+  </url>
 </urlset>

@@ -21,6 +21,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://njugunasam.co.ke"
 PERSON_ID = SITE + "/#person"
+PERSON_IMAGE = SITE + "/images/njuguna-ngugi.png"
 SOCIAL_DIR = ROOT / "images" / "social"
 SIGNATURE_SOURCE = ROOT / "images" / "signature-source.jpg"
 EM_DASH = chr(0x2014)
@@ -156,7 +157,7 @@ def describe_page(path: Path) -> Page:
             section="Profile",
             schema_type="ProfilePage",
             image_name="home.png",
-            image_alt="Njuguna Ngugi, Founder and CEO of Trendify Labs",
+            image_alt="Handwritten signature of Njuguna Ngugi",
             home=True,
         )
 
@@ -225,6 +226,7 @@ def page_metadata(page: Page) -> str:
                 "@id": PERSON_ID,
                 "name": "Njuguna Ngugi",
                 "url": SITE + "/",
+                "image": PERSON_IMAGE,
                 "jobTitle": "Founder and Chief Executive Officer",
                 "description": page.description,
                 "worksFor": {
@@ -241,6 +243,7 @@ def page_metadata(page: Page) -> str:
                 "@id": SITE + "/#profile",
                 "url": SITE + "/",
                 "name": page.html_title,
+                "primaryImageOfPage": PERSON_IMAGE,
                 "isPartOf": {"@id": SITE + "/#website"},
                 "mainEntity": {"@id": PERSON_ID},
             }),
@@ -405,12 +408,16 @@ def render_cards(pages: list[Page]) -> None:
 
 
 def write_sitemap(pages: list[Page]) -> None:
-    urls = [page.canonical for page in pages]
     contents = [
         '<?xml version="1.0" encoding="UTF-8"?>',
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+        '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
     ]
-    contents.extend(f"  <url><loc>{escape(url)}</loc></url>" for url in urls)
+    for page in pages:
+        contents.append(f"  <url><loc>{escape(page.canonical)}</loc>")
+        if page.home:
+            contents.append(f"    <image:image><image:loc>{escape(PERSON_IMAGE)}</image:loc></image:image>")
+        contents.append("  </url>")
     contents.append("</urlset>")
     (ROOT / "sitemap.xml").write_text("\n".join(contents) + "\n", encoding="utf-8")
 
@@ -437,11 +444,24 @@ def check(pages: list[Page]) -> None:
                 header = handle.read(24)
             if header[:8] != b"\x89PNG\r\n\x1a\n" or int.from_bytes(header[16:20], "big") != 1200 or int.from_bytes(header[20:24], "big") != 630:
                 failures.append(f"{page.relative}: social image is not a 1200x630 PNG")
+        if page.home:
+            for token in (
+                f'"image": "{PERSON_IMAGE}"',
+                f'"primaryImageOfPage": "{PERSON_IMAGE}"',
+                f'<meta property="og:image" content="{page.image_url}">',
+                f'<meta name="twitter:image" content="{page.image_url}">',
+            ):
+                if token not in source:
+                    failures.append(f"{page.relative}: missing homepage portrait/preview token {token}")
     sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
     if contains_em_dash(sitemap):
         failures.append("sitemap.xml: still contains an em dash")
     if not SIGNATURE_SOURCE.is_file():
         failures.append("missing handwritten signature source image")
+    if not (ROOT / "images" / "njuguna-ngugi.png").is_file():
+        failures.append("missing public portrait image")
+    if f"<image:loc>{PERSON_IMAGE}</image:loc>" not in sitemap:
+        failures.append("sitemap.xml: missing homepage portrait image URL")
     for page in pages:
         if f"<loc>{page.canonical}</loc>" not in sitemap:
             failures.append(f"sitemap.xml: missing {page.canonical}")
