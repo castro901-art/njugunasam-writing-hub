@@ -49,6 +49,7 @@ class Page:
     image_name: str
     image_alt: str
     home: bool = False
+    author_name: str | None = "Njuguna Ngugi"
 
     @property
     def canonical(self) -> str:
@@ -174,17 +175,27 @@ def describe_page(path: Path) -> Page:
     category = "Short note" if is_note else "Research"
     section = "Short notes" if is_note else "Research"
     slug = re.sub(r"[^a-z0-9-]+", "-", relative[:-5].lower()).strip("-").replace("/", "-")
+    author_name = (
+        None
+        if relative == "research/the-subscription-economy-wasnt-built-for-africa-and-thats-a-problem.html"
+        else "Njuguna Ngugi"
+    )
+    html_title = f"{parser.heading} - {author_name}" if author_name else parser.heading
+    image_alt = f"Social preview for {parser.heading}"
+    if author_name:
+        image_alt += f" by {author_name}"
     return Page(
         path=path,
         relative=relative,
-        html_title=f"{parser.heading} - Njuguna Ngugi",
+        html_title=html_title,
         title=parser.heading,
         description=description,
         category=category,
         section=section,
         schema_type="BlogPosting" if is_note else "Article",
         image_name=f"{slug}.png",
-        image_alt=f"Social preview for {parser.heading} by Njuguna Ngugi",
+        image_alt=image_alt,
+        author_name=author_name,
     )
 
 
@@ -201,11 +212,17 @@ def page_metadata(page: Page) -> str:
     lines = [
         f"  <title>{escape(page.html_title)}</title>",
         meta("name", "description", page.description),
-        meta("name", "author", "Njuguna Ngugi"),
+    ]
+    if page.author_name:
+        lines.append(meta("name", "author", page.author_name))
+    lines += [
         meta("name", "robots", "index, follow, max-image-preview:large"),
         f'  <link rel="canonical" href="{escape(page.canonical, quote=True)}">',
         meta("property", "og:type", "profile" if page.home else "article"),
-        meta("property", "og:site_name", "Njuguna Ngugi"),
+    ]
+    if page.author_name:
+        lines.append(meta("property", "og:site_name", page.author_name))
+    lines += [
         meta("property", "og:title", page.title),
         meta("property", "og:description", page.description),
         meta("property", "og:url", page.canonical),
@@ -266,19 +283,26 @@ def page_metadata(page: Page) -> str:
             meta("name", "twitter:description", page.description),
             meta("name", "twitter:image", page.image_url),
             meta("name", "twitter:image:alt", page.image_alt),
-            json_script({
-                "@context": "https://schema.org",
-                "@type": page.schema_type,
-                "mainEntityOfPage": {"@type": "WebPage", "@id": page.canonical},
-                "headline": page.title,
-                "description": page.description,
-                "image": page.image_url,
-                "author": {"@type": "Person", "@id": PERSON_ID, "name": "Njuguna Ngugi", "url": SITE + "/"},
-                "publisher": {"@id": PERSON_ID},
-                "articleSection": page.section,
-                "inLanguage": "en",
-            }),
         ]
+        article_data = {
+            "@context": "https://schema.org",
+            "@type": page.schema_type,
+            "mainEntityOfPage": {"@type": "WebPage", "@id": page.canonical},
+            "headline": page.title,
+            "description": page.description,
+            "image": page.image_url,
+        }
+        if page.author_name:
+            article_data["author"] = {
+                "@type": "Person",
+                "@id": PERSON_ID,
+                "name": page.author_name,
+                "url": SITE + "/",
+            }
+            article_data["publisher"] = {"@id": PERSON_ID}
+        article_data["articleSection"] = page.section
+        article_data["inLanguage"] = "en"
+        lines.append(json_script(article_data))
     if page.home:
         lines += [
             meta("name", "twitter:card", "summary_large_image"),
@@ -356,7 +380,8 @@ body {{ background:#f2f0e6; }}
     title = escape(page.title)
     subtitle = escape(page.description)
     category = escape(page.category.upper())
-    brand = "Njuguna Ngugi"
+    brand_markup = f'<span class="brand">{escape(page.author_name)}</span>' if page.author_name else ""
+    header_justify = "space-between" if page.author_name else "flex-end"
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><style>
 * {{ box-sizing:border-box; }}
@@ -364,7 +389,7 @@ html,body {{ width:1200px; height:630px; margin:0; }}
 body {{ background:#f2f0e6; color:#211f1b; font-family:Arial,Helvetica,sans-serif; }}
 .card {{ width:1200px; height:630px; padding:48px 72px 38px; border:1px solid #c9c7bd; display:flex; flex-direction:column; overflow:hidden; position:relative; background:#f2f0e6; }}
 .card::before {{ content:""; position:absolute; inset:0 auto 0 0; width:12px; background:#744b3d; }}
-header {{ display:flex; align-items:center; justify-content:space-between; gap:24px; padding:0 22px 17px; border-bottom:1px solid #c9c7bd; }}
+header {{ display:flex; align-items:center; justify-content:{header_justify}; gap:24px; padding:0 22px 17px; border-bottom:1px solid #c9c7bd; }}
 .brand {{ font:700 20px/1.2 Georgia,"Times New Roman",serif; letter-spacing:-.02em; }}
 .category {{ color:#744b3d; font:700 13px/1.2 Arial,Helvetica,sans-serif; letter-spacing:.16em; }}
 main {{ flex:1; display:flex; flex-direction:column; justify-content:center; padding:0 22px; }}
@@ -373,7 +398,7 @@ h1 {{ max-width:980px; margin:0; font:500 58px/1.1 Georgia,"Times New Roman",ser
 .subtitle {{ max-width:950px; margin:23px 0 0; color:#59574f; font:21px/1.45 Arial,Helvetica,sans-serif; }}
 footer {{ padding:15px 22px 0; border-top:1px solid #c9c7bd; color:#59574f; font:14px/1.3 Arial,Helvetica,sans-serif; letter-spacing:.04em; }}
 </style></head><body><div class="card" role="img" aria-label="{escape(page.image_alt, quote=True)}">
-<header><span class="brand">{brand}</span><span class="category">{category}</span></header>
+<header>{brand_markup}<span class="category">{category}</span></header>
 <main><div class="rule"></div><h1>{title}</h1><p class="subtitle">{subtitle}</p></main>
 <footer>njugunasam.co.ke</footer></div></body></html>'''
 
@@ -436,6 +461,15 @@ def check(pages: list[Page]) -> None:
         ):
             if token not in source:
                 failures.append(f"{page.relative}: missing {token}")
+        if page.author_name is None:
+            head = source.partition("</head>")[0]
+            if any(identifier in head for identifier in ("Njuguna Ngugi", "Trendify")):
+                failures.append(f"{page.relative}: article metadata still contains removed identifiers")
+            if "publication-byline" in source:
+                failures.append(f"{page.relative}: anonymous article still contains a visible byline")
+            social_markup = card_html(page)
+            if any(identifier in social_markup for identifier in ("Njuguna Ngugi", "Trendify")):
+                failures.append(f"{page.relative}: social card still contains removed identifiers")
         image = SOCIAL_DIR / page.image_name
         if not image.is_file():
             failures.append(f"{page.relative}: missing social image {image.relative_to(ROOT)}")
