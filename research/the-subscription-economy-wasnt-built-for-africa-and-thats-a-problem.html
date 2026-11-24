@@ -47,7 +47,7 @@
     * { box-sizing:border-box; }
     body { min-width:320px; margin:0; background:var(--paper); color:var(--ink); font-family:var(--serif); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; transition:background-color .2s ease,color .2s ease; }
     body[data-theme="dark"] { color-scheme:dark; --paper:#20211f; --ink:#eeeae0; --muted:#bcb8ad; --line:#55544e; --accent:#d4a48e; --switch-track:#3a3b37; --switch-border:#aaa69b; --switch-dot:#eeeae0; }
-    .site-header { width:min(710px,calc(100% - 40px)); margin:0 auto; padding-top:22px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .site-header { width:min(710px,calc(100% - 40px)); margin:0 auto; padding-top:22px; display:flex; align-items:center; justify-content:flex-end; gap:20px; }
     .brand { color:var(--ink); font-size:22px; font-weight:700; line-height:1.2; letter-spacing:-.035em; text-decoration:none; }
     .theme-toggle { width:39px; height:22px; flex:0 0 auto; padding:2px; border:1px solid var(--switch-border); border-radius:99px; background:var(--switch-track); cursor:pointer; display:flex; align-items:center; }
     .theme-toggle::before { content:""; width:14px; height:14px; border-radius:50%; background:var(--switch-dot); transition:transform .2s ease; }
@@ -73,7 +73,6 @@
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="/">Njuguna Ngugi</a>
     <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false"></button>
   </header>
   <main>
